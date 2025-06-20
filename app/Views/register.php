@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?php echo base_url('adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="<?php echo base_url('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="<?php echo base_url('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'); ?>">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url('adminlte/dist/css/adminlte.min.css'); ?>">
 </head>
@@ -74,63 +76,62 @@
                     </div>
                     <div class="form-group">
                         <label>Jenis Kelamin: </label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radio1">
-                            <label class="form-check-label">Laki-laki</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radio1" checked="">
-                            <label class="form-check-label">Perempuan</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="radio1" id="laki" value="Laki-laki">
+                                <label class="form-check-label" for="laki">Laki-laki</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="radio1" id="perempuan" value="Perempuan" checked>
+                                <label class="form-check-label" for="perempuan">Perempuan</label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                    </div><div class="form-group">
-                        <label>Textarea</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                      </div>
+                        <textarea class="form-control" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
+                    </div>
                     <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
                         <!-- /.col -->
-                        <div class="col-4">
+                        <div class="col-6">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
-                    </div>
+                        <div class="col-6">
+                            <button type="reset" class="btn btn-secondary btn-block">Reset</button>
+                            <!-- /.col -->
+                        </div>
                 </form>
-
-                <div class="social-auth-links text-center">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
-
-                <a href="login.html" class="text-center">I already have a membership</a>
+                <a href="<?php echo base_url('/login') ?>" class="text-center">Sudah memiliki akun? Silakan Login</a>
             </div>
             <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
-    <!-- /.register-box -->
 
     <!-- jQuery -->
-    <script src="<?php echo base_url('adminlte/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="<?php echo base_url('adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
     <!-- Bootstrap 4 -->
-    <script src="<?php echo base_url('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?php echo base_url('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+    <!-- Moment.js -->
+    <script src="<?php echo base_url('adminlte/plugins/moment/moment.min.js'); ?>"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="<?php echo base_url('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'); ?>"></script>
     <!-- AdminLTE App -->
-    <script src="<?php echo base_url('adminlte/dist/js/adminlte.min.js') ?>"></script>
+    <script src="<?php echo base_url('adminlte/dist/js/adminlte.min.js'); ?>"></script>
+
+    <script>
+        $(function() {
+            $('#reservationdate').datetimepicker({
+                format: 'L',
+                icons: {
+                    time: 'far fa-clock'
+                }
+            });
+            // Tambahan: klik input juga munculkan datepicker
+            $('#reservationdate .datetimepicker-input').on('click', function() {
+                $('#reservationdate').datetimepicker('show');
+            });
+        });
+    </script>
 </body>
 
 </html>

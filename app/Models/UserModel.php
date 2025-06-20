@@ -23,7 +23,7 @@ class UserModel extends Model
         'birth_date',
         'gender',
         'address',
-        'city',
+        'city_id',
         'phone',
         'created_at',
         'updated_at',

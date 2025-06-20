@@ -18,12 +18,17 @@ class CreateUsersTable extends Migration
             'birth_date' => ['type' => 'DATE', 'null' => true],
             'gender'     => ['type' => 'ENUM', 'constraint' => ['L', 'P'], 'null' => true],
             'address'    => ['type' => 'TEXT', 'null' => true],
-            'city'       => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+            'city_id'    => [
+                'type' => 'INT',
+                'unsigned' => true,
+                'null' => false
+            ],
             'phone'      => ['type' => 'VARCHAR', 'constraint' => 20, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('city_id', 'cities', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('users');
     }
 
