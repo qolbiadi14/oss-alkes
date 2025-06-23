@@ -51,6 +51,14 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        // Proteksi: redirect ke login jika belum login (kecuali halaman login/register)
+        $uri = $request->getUri()->getPath();
+        $publicRoutes = ['login', 'register', 'auth/login', 'auth/register'];
+        if (!session()->get('isLoggedIn') && !in_array($uri, $publicRoutes)) {
+            header('Location: ' . base_url('login'));
+            exit;
+        }
+
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');

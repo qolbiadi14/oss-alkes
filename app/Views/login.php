@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Log in (v2)</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?php echo base_url('adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="<?php echo base_url('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url('adminlte/dist/css/adminlte.min.css'); ?>">
-</head>
+<?= $this->include('layout/layout_header') ?>
 
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -56,7 +40,7 @@
                     <a href="forgot-password.html">Lupa password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="<?php echo base_url('/register') ?>" class="text-center">Registrasi pelanggan baru</a>
+                    <a href="<?= base_url('/register') ?>" class="text-center">Registrasi pelanggan baru</a>
                 </p>
             </div>
             <!-- /.card-body -->
@@ -65,12 +49,28 @@
     </div>
     <!-- /.login-box -->
 
-    <!-- jQuery -->
-    <script src="<?php echo base_url('adminlte/plugins/jquery/jquery.min.js') ?>"></script>
-    <!-- Bootstrap 4 -->
-    <script src="<?php echo base_url('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-    <!-- AdminLTE App -->
-    <script src="<?php echo base_url('adminlte/dist/js/adminlte.min.js') ?>"></script>
-</body>
-
-</html>
+    <?= $this->include('layout/layout_footer') ?>
+    <?php if (session()->getFlashdata('success')): ?>
+        <script>
+            $(function() {
+                if ($('#toastsContainerTopRight').length === 0) {
+                    $(document.body).append('<div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>');
+                }
+                $(
+                    '<div class="toast bg-success fade show" role="alert" aria-live="assertive" aria-atomic="true">' +
+                    '<div class="toast-header">' +
+                    '<strong class="mr-auto">Sukses</strong>' +
+                    '<small>Info</small>' +
+                    '<button data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                    '</div>' +
+                    '<div class="toast-body">' +
+                    '<?= session('success') ?>' +
+                    '</div>' +
+                    '</div>'
+                ).appendTo('#toastsContainerTopRight');
+                setTimeout(function() {
+                    $('.toast').toast('hide');
+                }, 3500);
+            });
+        </script>
+    <?php endif; ?>
