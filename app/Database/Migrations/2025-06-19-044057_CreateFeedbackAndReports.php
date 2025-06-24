@@ -10,31 +10,21 @@ class CreateFeedbackAndReports extends Migration
     {
         // Feedback
         $this->forge->addField([
-            'id' => ['type' => 'INT', 'auto_increment' => true],
-            'user_id' => ['type' => 'INT'],
+            'id' => ['type' => 'INT', 'auto_increment' => true, 'unsigned' => true],
+            'user_id' => ['type' => 'INT', 'unsigned' => true],
+            'order_id' => ['type' => 'INT', 'unsigned' => true],
             'message' => ['type' => 'TEXT'],
+            'rating' => ['type' => 'INT', 'constraint' => 1, 'default' => 0],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('feedback');
-
-        // Reports
-        $this->forge->addField([
-            'id' => ['type' => 'INT', 'auto_increment' => true],
-            'order_id' => ['type' => 'INT'],
-            'pdf_path' => ['type' => 'VARCHAR', 'constraint' => 255],
-            'emailed_to' => ['type' => 'VARCHAR', 'constraint' => 100],
-            'created_at' => ['type' => 'DATETIME', 'null' => true],
-        ]);
-        $this->forge->addKey('id', true);
         $this->forge->addForeignKey('order_id', 'orders', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('reports');
+        $this->forge->createTable('feedback');
     }
 
     public function down()
     {
         $this->forge->dropTable('feedback');
-        $this->forge->dropTable('reports');
     }
 }

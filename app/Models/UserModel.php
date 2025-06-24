@@ -25,6 +25,7 @@ class UserModel extends Model
         'address',
         'city_id',
         'phone',
+        'status',
         'created_at',
         'updated_at',
     ];

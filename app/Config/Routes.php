@@ -17,10 +17,25 @@ $routes->post('/admin/categories/store', 'Admin\Categories::store');
 $routes->get('/admin/categories/edit/(:num)', 'Admin\Categories::edit/$1');
 $routes->post('/admin/categories/update/(:num)', 'Admin\Categories::update/$1');
 $routes->post('/admin/categories/delete/(:num)', 'Admin\Categories::delete/$1');
+$routes->get('/admin/users', 'Admin\Users::index');
+$routes->post('/admin/users/delete/(:num)', 'Admin\Users::delete/$1');
+$routes->post('/admin/users/activate/(:num)', 'Admin\Users::activate/$1');
+$routes->get('/vendor/products', 'Vendor\Products::index');
+$routes->get('/vendor/products/add', 'Vendor\Products::add');
+$routes->post('/vendor/products/store', 'Vendor\Products::store');
+$routes->get('/vendor/products/edit/(:num)', 'Vendor\Products::edit/$1');
+$routes->post('/vendor/products/update/(:num)', 'Vendor\Products::update/$1');
+$routes->post('/vendor/products/delete/(:num)', 'Vendor\Products::delete/$1');
 
 
 $routes->group('admin', ['filter' => 'rolefilter'], function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
+});
+
+$routes->group('vendor', ['filter' => 'rolefilter'], function ($routes) {
+    $routes->get('dashboard', 'Vendor\Dashboard::index');
+    $routes->get('storeidentity', 'Vendor\StoreIdentity::index');
+    $routes->post('storeidentity/save', 'Vendor\StoreIdentity::save');
 });
 
 $routes->group('customer', ['filter' => 'rolefilter'], function ($routes) {

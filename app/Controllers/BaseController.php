@@ -48,13 +48,22 @@ abstract class BaseController extends Controller
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-        // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        // Proteksi: redirect ke login jika belum login (kecuali halaman login/register)
-        $uri = $request->getUri()->getPath();
-        $publicRoutes = ['login', 'register', 'auth/login', 'auth/register'];
-        if (!session()->get('isLoggedIn') && !in_array($uri, $publicRoutes)) {
+        // Ambil segment pertama dari path
+        $uri = trim($request->getUri()->getPath(), '/');
+        $firstSegment = explode('/', $uri)[0];
+
+        // Daftar route publik yang tidak perlu login
+        $publicRoutes = ['login', 'register', 'logout', 'auth'];
+
+        if (!session()->get('isLoggedIn') && in_array($firstSegment, $publicRoutes)) {
+            // Jika akses ke halaman publik, biarkan
+            return;
+        }
+
+        if (!session()->get('isLoggedIn')) {
+            // Jika belum login dan bukan halaman publik, redirect ke login
             header('Location: ' . base_url('login'));
             exit;
         }

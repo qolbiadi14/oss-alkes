@@ -69,6 +69,7 @@ class Auth extends BaseController
             'address' => 'required',
             'city_id' => 'required|integer',
             'phone' => 'permit_empty',
+            'role' => 'required|in_list[customer,vendor]', // validasi role
         ]);
 
         if (! $validation->withRequest($this->request)->run()) {
@@ -93,7 +94,7 @@ class Auth extends BaseController
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role' => 'customer',
+            'role' => $this->request->getPost('role'), // ambil dari input
             'birth_date' => $birthDate,
             'gender' => $this->request->getPost('gender'),
             'address' => $this->request->getPost('address'),

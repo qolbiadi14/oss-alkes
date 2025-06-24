@@ -40,7 +40,7 @@
                     <a href="forgot-password.html">Lupa password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="<?= base_url('/register') ?>" class="text-center">Registrasi pelanggan baru</a>
+                    <a href="<?= base_url('/register') ?>" class="text-center">Registrasi baru</a>
                 </p>
             </div>
             <!-- /.card-body -->

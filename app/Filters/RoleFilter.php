@@ -38,6 +38,10 @@ class RoleFilter implements FilterInterface
             return redirect()->to('/admin/dashboard');
         }
 
+        if ($role === 'vendor' && $uri !== 'vendor') {
+            return redirect()->to('/vendor/dashboard');
+        }
+
         if ($role === 'customer' && $uri !== 'customer') {
             return redirect()->to('/customer/dashboard');
         }

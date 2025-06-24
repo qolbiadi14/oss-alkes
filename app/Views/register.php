@@ -10,6 +10,17 @@
                 <p class="login-box-msg">Registrasi pelanggan baru</p>
 
                 <form action="<?= base_url('register') ?>" method="post">
+                    <div class="form-group mb-3">
+                        <label>Daftar Sebagai:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="role" id="role_customer" value="customer" <?= old('role', 'customer') == 'customer' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="role_customer">Customer</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="role" id="role_vendor" value="vendor" <?= old('role') == 'vendor' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="role_vendor">Vendor</label>
+                        </div>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="text" name="fullname" class="form-control" placeholder="Nama Lengkap" required value="<?= old('fullname') ?>">
                         <div class="input-group-append">

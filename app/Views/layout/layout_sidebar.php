@@ -68,15 +68,38 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                    <a href="<?= base_url('/admin/users') ?>" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Data Pelanggan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?= base_url('/admin/store_data') ?>" class="nav-link">
+                                        <i class="fas fa-store nav-icon"></i>
+                                        <p>Data Toko</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    Manajemen Toko
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('/vendor/products') ?>" class="nav-link">
                                         <i class="fas fa-shopping-basket nav-icon"></i>
                                         <p>Data Produk</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                        <i class="fas fa-users nav-icon"></i>
-                                        <p>Data Pelanggan</p>
+                                    <a href="<?= base_url('/vendor/storeidentity') ?>" class="nav-link">
+                                        <i class="fas fa-warehouse nav-icon"></i>
+                                        <p>Identitas Toko</p>
                                     </a>
                                 </li>
                             </ul>

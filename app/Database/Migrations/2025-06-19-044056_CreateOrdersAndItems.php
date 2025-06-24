@@ -10,17 +10,19 @@ class CreateOrdersAndItems extends Migration
     {
         // Orders
         $this->forge->addField([
-            'id' => ['type' => 'INT', 'auto_increment' => true],
-            'user_id' => ['type' => 'INT'],
+            'id' => ['type' => 'INT', 'auto_increment' => true, 'unsigned' => true],
+            'order_number' => ['type' => 'VARCHAR', 'constraint' => 50, 'null' => true],
+            'store_id' => ['type' => 'INT', 'unsigned' => true],
+            'user_id' => ['type' => 'INT', 'unsigned' => true],
             'total_amount' => ['type' => 'DECIMAL', 'constraint' => '10,2'],
-            'status' => ['type' => 'ENUM', 'constraint' => ['pending', 'paid', 'shipped', 'cancelled'], 'default' => 'pending'],
-            'payment_method' => ['type' => 'ENUM', 'constraint' => ['xendit', 'cod']],
-            'city' => ['type' => 'VARCHAR', 'constraint' => 100],
+            'status' => ['type' => 'ENUM', 'constraint' => ['pending', 'paid', 'ready','shipped', 'arrived', 'finish', 'cancelled'], 'default' => 'pending'],
+            'payment_method' => ['type' => 'ENUM', 'constraint' => ['midtrans', 'cod']],
 
             // Kolom transaksi
-            'transaction_id' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+            'payment_token' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'payment_gateway' => ['type' => 'VARCHAR', 'constraint' => 50, 'null' => true],
             'payment_status' => ['type' => 'ENUM', 'constraint' => ['pending', 'success', 'failed'], 'default' => 'pending'],
+            'paid_at' => ['type' => 'DATETIME', 'null' => true],
 
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
@@ -31,9 +33,9 @@ class CreateOrdersAndItems extends Migration
 
         // Order Items
         $this->forge->addField([
-            'id' => ['type' => 'INT', 'auto_increment' => true],
-            'order_id' => ['type' => 'INT'],
-            'product_id' => ['type' => 'INT'],
+            'id' => ['type' => 'INT', 'auto_increment' => true, 'unsigned' => true],
+            'order_id' => ['type' => 'INT', 'unsigned' => true],
+            'product_id' => ['type' => 'INT', 'unsigned' => true],
             'quantity' => ['type' => 'INT'],
             'price' => ['type' => 'DECIMAL', 'constraint' => '10,2'],
         ]);
