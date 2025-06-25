@@ -20,6 +20,11 @@ $routes->post('/admin/categories/delete/(:num)', 'Admin\Categories::delete/$1');
 $routes->get('/admin/users', 'Admin\Users::index');
 $routes->post('/admin/users/delete/(:num)', 'Admin\Users::delete/$1');
 $routes->post('/admin/users/activate/(:num)', 'Admin\Users::activate/$1');
+$routes->get('/admin/accstores', 'Admin\AccStores::index');
+$routes->post('/admin/accstores/approve/(:num)', 'Admin\AccStores::approve/$1');
+$routes->post('/admin/accstores/reject/(:num)', 'Admin\AccStores::reject/$1');
+$routes->post('/admin/accstores/suspend/(:num)', 'Admin\AccStores::suspend/$1');
+$routes->post('/admin/accstores/unsuspend/(:num)', 'Admin\AccStores::unsuspend/$1');
 $routes->get('/vendor/products', 'Vendor\Products::index');
 $routes->get('/vendor/products/add', 'Vendor\Products::add');
 $routes->post('/vendor/products/store', 'Vendor\Products::store');
@@ -40,4 +45,9 @@ $routes->group('vendor', ['filter' => 'rolefilter'], function ($routes) {
 
 $routes->group('customer', ['filter' => 'rolefilter'], function ($routes) {
     $routes->get('dashboard', 'Customer\Dashboard::index');
+    $routes->get('products/detail/(:num)', 'Customer\Products::detail/$1');
+    $routes->get('cart', 'Customer\Cart::index');
+    $routes->get('cart/add/(:num)', 'Customer\Cart::add/$1');
+    $routes->post('cart/updateQuantity/(:num)', 'Customer\Cart::updateQuantity/$1');
+    $routes->get('cart/remove/(:num)', 'Customer\Cart::remove/$1');
 });

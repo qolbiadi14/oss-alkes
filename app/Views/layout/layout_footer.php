@@ -29,6 +29,8 @@
 <script src="<?= base_url('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'); ?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('adminlte/dist/js/adminlte.min.js'); ?>"></script>
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </body>
 

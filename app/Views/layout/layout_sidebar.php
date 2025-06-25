@@ -74,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url('/admin/store_data') ?>" class="nav-link">
+                                    <a href="<?= base_url('/admin/accstores') ?>" class="nav-link">
                                         <i class="fas fa-store nav-icon"></i>
                                         <p>Data Toko</p>
                                     </a>
@@ -113,6 +113,11 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('/customer/cart') ?>" class="nav-link">
+                                        <i class="fas fa-shopping-bag nav-icon"></i>
+                                        <p>Keranjang Belanja</p>
+                                    </a>
                                 <li class="nav-item">
                                     <a href="pages/charts/chartjs.html" class="nav-link">
                                         <i class="fas fa-people-carry nav-icon"></i>

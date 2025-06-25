@@ -21,11 +21,13 @@ class Auth extends BaseController
         $user = $userModel->where('username', $username)->first();
 
         if ($user && password_verify($password, $user['password'])) {
+            // Set city_id ke session
             session()->set([
                 'user_id' => $user['id'],
                 'username' => $user['username'],
                 'role' => $user['role'],
-                'isLoggedIn' => true
+                'isLoggedIn' => true,
+                'city_id' => $user['city_id'] ?? null
             ]);
 
             // Redirect berdasarkan role
