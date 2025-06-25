@@ -50,6 +50,13 @@ abstract class BaseController extends Controller
     {
         parent::initController($request, $response, $logger);
 
+        // Set header agar halaman tidak di-cache (penting untuk logout)
+        if (!is_cli()) {
+            header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+            header('Cache-Control: post-check=0, pre-check=0', false);
+            header('Pragma: no-cache');
+        }
+
         // Ambil segment pertama dari path
         $uri = trim($request->getUri()->getPath(), '/');
         $firstSegment = explode('/', $uri)[0];

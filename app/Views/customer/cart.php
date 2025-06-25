@@ -128,11 +128,10 @@
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="#" class="btn btn-success float-right ml-2"><i class="far fa-credit-card"></i> Bayar Prepaid</a>
-                                    <?php if ($canPostpaid): ?>
-                                        <a href="#" class="btn btn-primary float-right mr-2"><i class="fas fa-money-check-alt"></i> Bayar Postpaid</a>
-                                    <?php else: ?>
-                                        <button type="button" class="btn btn-primary float-right mr-2" disabled title="Postpaid hanya untuk customer & toko di kota yang sama"><i class="fas fa-money-check-alt"></i> Bayar Postpaid</button>
+                                    <?php if (!empty($cart)): ?>
+                                        <form action="<?= base_url('customer/payment/process') ?>" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-success float-right ml-2">Proses</button>
+                                        </form>
                                     <?php endif; ?>
                                 </div>
                             </div>

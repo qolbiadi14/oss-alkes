@@ -32,17 +32,21 @@ class RoleFilter implements FilterInterface
         }
 
         $role = $session->get('role');
-        $uri = service('uri')->getSegment(1); // admin/customer
+        $uri = service('uri');
+        $firstSegment = $uri->getSegment(1); // admin/customer/vendor/reports
 
-        if ($role === 'admin' && $uri !== 'admin') {
+        // Izinkan akses ke route global reports untuk semua role
+        if ($firstSegment === 'reports') {
+            return;
+        }
+
+        if ($role === 'admin' && $firstSegment !== 'admin') {
             return redirect()->to('/admin/dashboard');
         }
-
-        if ($role === 'vendor' && $uri !== 'vendor') {
+        if ($role === 'vendor' && $firstSegment !== 'vendor') {
             return redirect()->to('/vendor/dashboard');
         }
-
-        if ($role === 'customer' && $uri !== 'customer') {
+        if ($role === 'customer' && $firstSegment !== 'customer') {
             return redirect()->to('/customer/dashboard');
         }
 

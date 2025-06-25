@@ -149,6 +149,40 @@
                         '</div>' +
                         '</div>'
                     ).appendTo('#toastsContainerTopRight');
+                    setTimeout(function() {
+                        $('.toast').toast('hide');
+                    }, 3500);
+                });
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>
+        <script>
+            $(function() {
+                $(document).ready(function() {
+                    if ($('#toastsContainerTopRight').length === 0) {
+                        $(document.body).append('<div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>');
+                    }
+                    $(document.body).toast({
+                        autohide: true
+                    });
+                    $(
+                        '<div class="toast bg-danger fade show" role="alert" aria-live="assertive" aria-atomic="true">' +
+                        '<div class="toast-header">' +
+                        '<strong class="mr-auto">Error</strong>' +
+                        '<small>Info</small>' +
+                        '<button data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '</div>' +
+                        '<div class="toast-body">' +
+                        '<?= session('error') ?>' +
+                        '</div>' +
+                        '</div>'
+                    ).appendTo('#toastsContainerTopRight');
+                    setTimeout(function() {
+                        $('.toast').toast('hide');
+                    }, 3500);
                 });
             });
         </script>

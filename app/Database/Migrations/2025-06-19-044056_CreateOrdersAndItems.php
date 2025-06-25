@@ -16,7 +16,7 @@ class CreateOrdersAndItems extends Migration
             'user_id' => ['type' => 'INT', 'unsigned' => true],
             'total_amount' => ['type' => 'DECIMAL', 'constraint' => '10,2'],
             'status' => ['type' => 'ENUM', 'constraint' => ['pending', 'paid', 'ready','shipped', 'arrived', 'finish', 'cancelled'], 'default' => 'pending'],
-            'payment_method' => ['type' => 'ENUM', 'constraint' => ['midtrans', 'cod']],
+            'payment_method' => ['type' => 'ENUM', 'constraint' => ['prepaid', 'postpaid']],
 
             // Kolom transaksi
             'payment_token' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
@@ -28,6 +28,7 @@ class CreateOrdersAndItems extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('store_id', 'store_profiles', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('orders');
 

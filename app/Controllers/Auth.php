@@ -46,8 +46,18 @@ class Auth extends BaseController
 
     public function logout()
     {
+        // Hapus semua session data
         session()->destroy();
-        return redirect()->to('/login');
+
+        // Tidak perlu regenerate setelah destroy
+        // Karena sudah tidak ada active session
+
+        // Force header untuk redirect ke login
+        header('Location: ' . base_url('/login'));
+        exit;
+
+        // Kode berikut tidak akan dijalankan, karena sudah exit
+        // return redirect()->to('/login');
     }
 
     public function register()
@@ -75,7 +85,10 @@ class Auth extends BaseController
         ]);
 
         if (! $validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            // Ubah dari menampilkan error individual menjadi error pesan umum
+            $errorMessages = $validation->getErrors();
+            $errorString = implode(', ', array_values($errorMessages));
+            return redirect()->back()->withInput()->with('error', 'Gagal registrasi: ' . $errorString);
         }
 
         $birthDateInput = $this->request->getPost('birth_date');

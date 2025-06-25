@@ -34,9 +34,10 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
-
-                                <p>New Orders</p>
+                                <h3><?= isset(
+                                        $totalOrders
+                                    ) ? $totalOrders : 0 ?></h3>
+                                <p>Total Order</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -49,12 +50,11 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                <p>Bounce Rate</p>
+                                <h3><?= isset($totalStores) ? $totalStores : 0 ?></h3>
+                                <p>Jumlah Toko</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="ion ion-home"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
@@ -64,9 +64,8 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
-
-                                <p>User Registrations</p>
+                                <h3><?= isset($totalUsers) ? $totalUsers : 0 ?></h3>
+                                <p>Jumlah User</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -79,12 +78,11 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
+                                <h3><?= isset($pendingOrders) ? $pendingOrders : 0 ?></h3>
+                                <p>Order Belum Selesai</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
+                                <i class="ion ion-clock"></i>
                             </div>
                             <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>

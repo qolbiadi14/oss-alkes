@@ -35,10 +35,6 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
-                <p class="mb-1">
-                    <a href="forgot-password.html">Lupa password</a>
-                </p>
                 <p class="mb-0">
                     <a href="<?= base_url('/register') ?>" class="text-center">Registrasi baru</a>
                 </p>
@@ -65,6 +61,31 @@
                     '</div>' +
                     '<div class="toast-body">' +
                     '<?= session('success') ?>' +
+                    '</div>' +
+                    '</div>'
+                ).appendTo('#toastsContainerTopRight');
+                setTimeout(function() {
+                    $('.toast').toast('hide');
+                }, 3500);
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <script>
+            $(function() {
+                if ($('#toastsContainerTopRight').length === 0) {
+                    $(document.body).append('<div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>');
+                }
+                $(
+                    '<div class="toast bg-danger fade show" role="alert" aria-live="assertive" aria-atomic="true">' +
+                    '<div class="toast-header">' +
+                    '<strong class="mr-auto">Error</strong>' +
+                    '<small>Info</small>' +
+                    '<button data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                    '</div>' +
+                    '<div class="toast-body">' +
+                    '<?= session('error') ?>' +
                     '</div>' +
                     '</div>'
                 ).appendTo('#toastsContainerTopRight');

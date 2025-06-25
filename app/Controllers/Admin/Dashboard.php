@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers\Admin;
+
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 
@@ -13,13 +14,20 @@ class Dashboard extends \App\Controllers\BaseController
             return redirect()->to('/login');
         }
 
-        // Ambil data user dari model
-        $userModel = new UserModel();
-        $users = $userModel->findAll();
+        $userModel = new \App\Models\UserModel();
+        $storeModel = new \App\Models\StoreModel();
+        $orderModel = new \App\Models\OrderModel();
 
-        // Tampilkan view dashboard dengan data user
-        return view('admin/dashboard', ['users' => $users]);
+        $totalUsers = $userModel->countAllResults();
+        $totalStores = $storeModel->countAllResults();
+        $totalOrders = $orderModel->countAllResults();
+        $pendingOrders = $orderModel->whereIn('status', ['ready', 'shipped'])->countAllResults();
+
+        return view('admin/dashboard', [
+            'totalUsers' => $totalUsers,
+            'totalStores' => $totalStores,
+            'totalOrders' => $totalOrders,
+            'pendingOrders' => $pendingOrders
+        ]);
     }
 }
-
-?>
