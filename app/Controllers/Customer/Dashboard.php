@@ -10,6 +10,18 @@ use App\Models\CategoriesModel;
 
 class Dashboard extends \App\Controllers\BaseController
 {
+    /**
+     * Menampilkan halaman dashboard customer.
+     *
+     * Fungsi ini akan:
+     * - Memastikan user sudah login dan berperan sebagai customer.
+     * - Mengambil data produk (bisa difilter berdasarkan kategori).
+     * - Mengambil data semua toko dan membuat map id => nama toko.
+     * - Mengambil data semua kategori dan membuat map id => nama kategori.
+     * - Mengirim data ke view dashboard customer.
+     *
+     * @return string
+     */
     public function index()
     {
         // Pastikan user sudah login dan memiliki role 'admin'

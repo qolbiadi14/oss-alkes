@@ -12,6 +12,18 @@ use App\Models\CityModel;
 
 class Payment extends BaseController
 {
+    /**
+     * Memproses pembuatan order dari cart user.
+     *
+     * - Mengecek user login dan role customer.
+     * - Mengambil data cart dari session.
+     * - Membuat nomor order unik.
+     * - Menghitung total amount order.
+     * - Menyimpan order dan order items ke database.
+     * - Mengosongkan cart dan redirect ke halaman payment.
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function process()
     {
         if (!session()->get('isLoggedIn') || session()->get('role') !== 'customer') {
@@ -67,6 +79,16 @@ class Payment extends BaseController
         return redirect()->to('/customer/payment/' . $orderId);
     }
 
+    /**
+     * Menampilkan halaman pembayaran untuk order tertentu.
+     *
+     * - Mengecek user login dan role customer.
+     * - Mengambil data order, order items, toko, user, dan kota terkait.
+     * - Mengirim data ke view payment.
+     *
+     * @param int|null $orderId
+     * @return string|\CodeIgniter\HTTP\RedirectResponse
+     */
     public function index($orderId = null)
     {
         if (!session()->get('isLoggedIn') || session()->get('role') !== 'customer') {
@@ -108,6 +130,16 @@ class Payment extends BaseController
         ]);
     }
 
+    /**
+     * Menghasilkan Snap Token Midtrans untuk order tertentu (AJAX).
+     *
+     * - Mengambil data order.
+     * - Mengatur konfigurasi Midtrans.
+     * - Mengembalikan snapToken dalam format JSON.
+     *
+     * @param int $orderId
+     * @return \CodeIgniter\HTTP\Response
+     */
     public function snapToken($orderId)
     {
         $orderModel = new OrderModel();
@@ -134,6 +166,16 @@ class Payment extends BaseController
         return $this->response->setJSON(['snapToken' => $snapToken]);
     }
 
+    /**
+     * Memproses pembayaran dengan metode prepaid (bayar di muka).
+     *
+     * - Mengambil data order.
+     * - Menghasilkan snapToken dan update order.
+     * - Redirect ke halaman payment dengan snapToken.
+     *
+     * @param int $orderId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function payPrepaid($orderId)
     {
         $orderModel = new OrderModel();
@@ -145,10 +187,21 @@ class Payment extends BaseController
         $orderModel->update($orderId, [
             'payment_method' => 'prepaid',
             'payment_token' => $snapToken,
+            'payment_gateway' => 'midtrans',
         ]);
         return redirect()->to('/customer/payment/' . $orderId . '?snapToken=' . $snapToken);
     }
 
+    /**
+     * Memproses pembayaran dengan metode postpaid (bayar di tempat, kota sama).
+     *
+     * - Mengecek kecocokan kota user dan toko.
+     * - Menghasilkan snapToken dan update order.
+     * - Redirect ke halaman payment dengan snapToken.
+     *
+     * @param int $orderId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function payPostpaid($orderId)
     {
         $orderModel = new OrderModel();
@@ -169,10 +222,20 @@ class Payment extends BaseController
         $orderModel->update($orderId, [
             'payment_method' => 'postpaid',
             'payment_token' => $snapToken,
+            'payment_gateway' => 'midtrans',
         ]);
         return redirect()->to('/customer/payment/' . $orderId . '?snapToken=' . $snapToken);
     }
 
+    /**
+     * Membuat Snap Token Midtrans untuk order (internal).
+     *
+     * - Mengatur konfigurasi Midtrans.
+     * - Mengembalikan snapToken.
+     *
+     * @param array $order
+     * @return string
+     */
     private function generateSnapToken($order)
     {
         \Midtrans\Config::$serverKey = getenv('MIDTRANS_SERVER_KEY');
@@ -188,6 +251,15 @@ class Payment extends BaseController
         return \Midtrans\Snap::getSnapToken($params);
     }
 
+    /**
+     * Menangani kasus pembayaran gagal.
+     *
+     * - Mengupdate status order menjadi cancelled dan payment_status failed.
+     * - Redirect ke halaman laporan dengan pesan error.
+     *
+     * @param int $orderId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function handlePaymentFailed($orderId)
     {
         $orderModel = new OrderModel();
@@ -200,5 +272,28 @@ class Payment extends BaseController
             'payment_status' => 'failed',
         ]);
         return redirect()->to('/customer/reports')->with('error', 'Pembayaran gagal. Order dibatalkan.');
+    }
+
+    /**
+     * Menangani kasus pembayaran sukses.
+     *
+     * - Mengupdate status order menjadi paid dan payment_status success.
+     * - Redirect ke halaman laporan dengan pesan sukses.
+     *
+     * @param int $orderId
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function handlePaymentSuccess($orderId)
+    {
+        $orderModel = new OrderModel();
+        $order = $orderModel->find($orderId);
+        if (!$order) {
+            return redirect()->to('/customer/reports')->with('error', 'Order tidak ditemukan.');
+        }
+        $orderModel->update($orderId, [
+            'status' => 'paid',
+            'payment_status' => 'success',
+        ]);
+        return redirect()->to('/customer/reports')->with('success', 'Pembayaran berhasil. Order telah dibayar.');
     }
 }

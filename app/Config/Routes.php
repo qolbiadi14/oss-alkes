@@ -78,3 +78,4 @@ $routes->get('reports', 'Reports::index');
 $routes->post('reports/cancelOrder/(:num)', 'Reports::cancelOrder/$1');
 $routes->post('reports/finishOrder/(:num)', 'Reports::finishOrder/$1');
 $routes->get('reports/printInvoice/(:num)', 'Reports::printInvoice/$1');
+$routes->post('midtrans/notification', 'Midtrans::notification');

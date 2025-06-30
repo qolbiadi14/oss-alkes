@@ -32,14 +32,13 @@
                                     </div>
                                 <?php endif; ?>
 
-                                <input type="hidden" name="user_id" value="<?= session()->get('user_id') ?>">
-                                <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-
                                 <?php if ($allReviewed): ?>
                                     <div class="alert alert-success">Semua produk pada order ini sudah diulas. Terima kasih!</div>
                                 <?php else: ?>
                                     <form action="<?= base_url('customer/feedback/store') ?>" method="post">
                                         <?= csrf_field() ?>
+                                        <input type="hidden" name="user_id" value="<?= session()->get('user_id') ?>">
+                                        <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
 
                                         <div class="form-group">
                                             <label for="product">Produk</label>
